@@ -20,7 +20,7 @@ class RegisterController extends Controller
             'nik' => 'required|numeric|digits:16|unique:masyarakats',
             'nama' => 'required',
             'email' => 'required|unique:masyarakats',
-            'username' => 'required',
+            'username' => 'required|unique:masyarakats',
             'password' => 'required',
             'password_confirm' => 'required|same:password',
             'telp' => 'required|digits_between:11,13|numeric',
@@ -33,12 +33,13 @@ class RegisterController extends Controller
             'email.required' => 'Email tidak boleh kosong!',
             'email.unique' => 'Email sudah terdaftar!',
             'username.required' => 'Username tidak boleh kosong!',
+            'username.unique' => 'Username sudah terdaftar!',
             'password.required' => 'Password tidak boleh kosong!',
             'password_confirm.required' => 'Password tidak boleh kosong!',
             'password_confirm.same' => 'Password harus sama!',
             'telp.required' => 'No. Telepon tidak boleh kosong!',
             'telp.digits_between' => 'No. Telepon harus diantara 11-13 digit!',
-            'telp.numeric' => 'No. Telepon harus berupa angka',
+            'telp.numeric' => 'No. Telepon harus berupa angka!',
         ]);
 
         $data_masyarakat = new Masyarakat();
@@ -49,7 +50,7 @@ class RegisterController extends Controller
         $data_masyarakat->password = bcrypt(request()->get('password'));
         $data_masyarakat->telp = request()->get('telp');
         $data_masyarakat->save();
-        return redirect()->to('/login')->with('success', 'Registrasi Berhasil!');
+        return redirect()->to('/login')->with('success', 'Registrasi berhasil, Silahkan Login!');
     }
 
     // Register Petugas/Admin
@@ -63,11 +64,27 @@ class RegisterController extends Controller
         request()->validate([
             'nama_petugas' => 'required',
             'email' => 'required|unique:petugas',
-            'username' => 'required',
+            'username' => 'required|unique:petugas',
             'password' => 'required',
             'password_confirm' => 'required|same:password' ,
-            'telp' => 'required|numeric',
-        ]);
+            'telp' => 'required|digits_between:11,13|numeric',
+            'level' => 'required',
+        ],
+    [
+            'nama_petugas.required' => 'Nama tidak boleh kosong!',
+            'email.required' => 'Email tidak boleh kosong!',
+            'email.unique' => 'Email sudah terdaftar!',
+            'username.required' => 'Username tidak boleh kosong!',
+            'username.unique' => 'Username sudah terdaftar!',
+            'password.required' => 'Password tidak boleh kosong!',
+            'password_confirm.required' => 'Password tidak boleh kosong!',
+            'password_confirm.same' => 'Password harus sama!',
+            'telp.required' => 'No. Telepon tidak boleh kosong!',
+            'telp.numeric' => 'No. Telepon harus berupa angka!',
+            'telp.digits_between' => 'No. Telepon harus diantara 11-13 digit!',
+            'level.required' => 'Level tidak boleh kosong!',
+
+    ]);
 
         $data_admin = new Petugas();
         $data_admin->nama_petugas = request()->get('nama_petugas');
@@ -77,6 +94,6 @@ class RegisterController extends Controller
         $data_admin->telp = request()->get('telp');
         $data_admin->level = request()->get('level');
         $data_admin->save();
-        return redirect()->to('/petugas/login')->with('success', 'Registrasi Berhasil!');
+        return redirect()->to('/admin/petugas')->with('statuss', 'Data petugas berhasil ditambahkan!');
     }
 }

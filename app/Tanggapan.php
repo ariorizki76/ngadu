@@ -18,4 +18,9 @@ class Tanggapan extends Model
     {
         return $this->belongsTo('App\Petugas');
     }
+
+    public function Masyarakat()
+    {
+        return $this->belongsTo('App\Masyarakat');
+    }
 }

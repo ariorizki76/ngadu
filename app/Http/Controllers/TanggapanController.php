@@ -20,6 +20,12 @@ class TanggapanController extends Controller
     // Simpan Tanggapan
     public function StoreTanggapan()
     {
+        request()->validate([
+            'tanggapan' => 'required',
+        ], [
+            'tanggapan.required' => 'Tanggapan tidak boleh kosong!'
+        ]);
+
         $data_tanggapan = new Tanggapan();
         $data_tanggapan->tanggal_tanggapan = request()->get('tanggal_tanggapan');
         $data_tanggapan->pengaduan_id = request()->get('pengaduan_id');
@@ -27,6 +33,6 @@ class TanggapanController extends Controller
         $data_tanggapan->petugas_id = Auth()->guard('petugas')->user()->id;
         $data_tanggapan->save();
 
-        return redirect()->to('petugas/pengaduan');
+        return redirect()->to('/petugas/pengaduan/' . $id)->with('status', 'Laporan berhasil ditanggapi!');
     }
 }

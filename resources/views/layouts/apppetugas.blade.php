@@ -1,63 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Ngadu</title>
-    <link rel="stylesheet" type ="text/css" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type ="text/css" href="{{asset('css/sb-admin-2.min.css')}}">
-    
+    <link rel="icon" href="{{asset('assets/img/brand/favicon.png" type="image/png')}}">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="{{asset('assets/vendor/nucleo/css/nucleo.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}"
+        type="text/css">
+    <!-- Page plugins -->
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.2.0')}}" type="text/css">
+    <link href="{{asset('vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/iconbox.css')}}" rel="stylesheet">
 </head>
-<body id="page-top">
+
+<body>
 
     <!-- Page Wrapper -->
-    <div id="wrapper">
-
+<div class="wrapper">
         @include('components.sidebar-petugas')
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
-            <div id="content">
- 
+            <div class="main-content" id="panel">
+
                 @include('components.navbar-petugas')
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+          @yield('content')
 
-                @yield('content')                    
-
-                </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer text-center">
                 <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy;2021 | Ariorizkialfariz</span>
+                    <div class="copyright text-center text-gray my-auto">
+                        <small>Copyright &copy;2021 | Ariorizkialfariz</small>
                     </div>
                 </div>
             </footer>
             <!-- End of Footer -->
 
-        </div>
         <!-- End of Content Wrapper -->
 
-    </div>
+
     <!-- End of Page Wrapper -->
+    </div>
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 </body>
-<script src="https://code.jquery.com/jquery.js"></script>
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-<script src="https://kit.fontawesome.com/9395705d74.js" crossorigin="anonymous"></script>
+<script src="{{asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/vendor/js-cookie/js.cookie.js')}}"></script>
+<script src="{{asset('assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js')}}"></script>
+<script src="{{asset('assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js')}}"></script>
+<!-- Optional JS -->
+<script src="{{asset('assets/vendor/chart.js/dist/Chart.min.js')}}"></script>
+<script src="{{asset('assets/vendor/chart.js/dist/Chart.extension.js')}}"></script>
+<!-- Argon JS -->
+<script src="{{asset('assets/js/argon.js?v=1.2.0')}}"></script>
+
 </html>

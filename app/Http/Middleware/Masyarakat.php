@@ -17,8 +17,9 @@ class Masyarakat
     {
         if(!Auth()->guard('masyarakat')->check())
         {
-            return redirect()->to('/login');
-        }
+            return redirect()->back();
+        } 
+       
         return $next($request);
     }
 }

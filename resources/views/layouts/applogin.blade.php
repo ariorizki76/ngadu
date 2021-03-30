@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="{{asset('loginres/css/bootstrap.min.css')}}">
     
     <!-- Style -->
-    <link rel="stylesheet" href="{{asset('loginres/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('/loginres/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.2.0')}}" type="text/css">
 
     <title>@yield('title') - Ngadu</title>
   </head>
-  <body style="background-color: #7142d6;">
+  <body style="background-image: url('{{asset('img/counts-bg.png')}}')">
     @yield('content')
-    <div id="preloader"></div>
 </body>
 
 <script src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" data-auto-replace-svg="nest"></script>
@@ -28,4 +28,5 @@
 <script src="{{asset('loginres/js/popper.min.js')}}"></script>
 <script src="{{asset('loginres/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('loginres/js/main.js')}}"></script>
+
 </html>

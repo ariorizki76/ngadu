@@ -15,11 +15,12 @@
     
     <!-- Style -->
     <link rel="stylesheet" href="{{asset('loginres/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.2.0')}}" type="text/css">
 
     <title>@yield('title') - Ngadu</title>
   </head>
 
-  <body style="background-image:url(img/counts-bg.png)">
+  <body style="background-image: url('{{asset('img/counts-bg.png')}}')">
     @yield('content')
 </body>
 <script src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" data-auto-replace-svg="nest"></script>

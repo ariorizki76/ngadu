@@ -13,17 +13,32 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function LoginMasyarakat()
+    public function LoginMasyarakat(Request $request)
     {
-        $auth = request()->only('email', 'password');
-        if(Auth()->guard('masyarakat')->attempt($auth))
-        {
-            return redirect()->to('/');
+        request()->validate([   
+            'username' => 'required',
+            'password' => 'required',
+        ],
+    [
+            'username.required' => 'Username tidak boleh kosong!',
+            'password.required' => 'Password tidak boleh kosong!',
+            
+            
+    ]);
+        
+        $auth = request()->only('status','username', 'password');
+        if (Auth()->guard('masyarakat')->attempt($auth)) {
+            if(Auth()->guard('masyarakat')->user()->status == "nonaktif"){
+                return redirect()->to('/login')->with('status', 'Akun anda dinonaktifkan!');
+            } else {
+                return redirect()->to('/masyarakat');
+            }
+        } else {
+            return redirect()->to('/login')->with('status', 'Username/Password anda salah!');
         }
-        else{
-            return redirect()->to('/login');
+
         }
-    }
+        
 
 
     // Login Petugas
@@ -32,18 +47,32 @@ class LoginController extends Controller
         return view('petugas.auth.login');
     }
 
-    public function LoginPetugas()
+    public function LoginPetugas(Request $requst)
     {
-        $auth = request()->only('email', 'password');
+
+        request()->validate([   
+            'username' => 'required',
+            'password' => 'required',
+            
+        ],
+    [
+            'username.required' => 'Username tidak boleh kosong!',
+            'password.required' => 'Password tidak boleh kosong!',
+            
+            
+    ]);
+        $auth = request()->only('username', 'password');
         if(Auth()->guard('petugas')->attempt($auth))
         {   
             if(Auth()->guard('petugas')->user()->level == "petugas")
             {
                 return redirect()->to('/petugas');
             }
-            else{
-                return redirect()->to('/petugas/login');
+             else {
+                return redirect()->to('/petugas/login')->with('status', 'Username/Password anda salah!');
             }
+        } else{
+            return redirect()->to('/petugas/login')->with('status', 'Username/Password anda salah!');
         }
     }
 
@@ -55,16 +84,31 @@ class LoginController extends Controller
 
     public function LoginAdmin()
     {
-        $auth = request()->only('email', 'password');
-        if(Auth()->guard('admin')->attempt($auth))
-        {   
-            if(Auth()->guard('admin')->user()->level == "admin")
-            {
-                return redirect()->to('/admin');
-            }
-            else{
-                return redirect()->to('/admin/login');
-            }
+        request()->validate([   
+            'username' => 'required',
+            'password' => 'required',
+            
+        ],
+    [
+            'username.required' => 'Username tidak boleh kosong!',
+            'password.required' => 'Password tidak boleh kosong!',
+            
+            
+    ]);
+
+
+    $auth = request()->only('username', 'password');
+    if(Auth()->guard('admin')->attempt($auth))
+    {   
+        if(Auth()->guard('admin')->user()->level == "admin")
+        {
+            return redirect()->to('/admin');
         }
+         else {
+            return redirect()->to('/admin/login')->with('status', 'Username/Password anda salah!');
+        }
+    } else{
+        return redirect()->to('/admin/login')->with('status', 'Username/Password anda salah!');
+    }
     }
 }

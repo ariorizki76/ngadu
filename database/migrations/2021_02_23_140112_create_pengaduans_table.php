@@ -17,9 +17,10 @@ class CreatePengaduansTable extends Migration
             $table->bigIncrements('id');
             $table->date('tanggal_pengaduan');
             $table->unsignedBigInteger('masyarakat_nik')->references('nik')->on('masyarakats');
+            $table->string('judul_laporan');
             $table->text('isi_laporan');
             $table->string('foto');
-            $table->enum('status', ['0', 'proses', 'selesai']);
+            $table->enum('status', ['tertunda', 'proses', 'selesai']);
             $table->timestamps();
         });
     }

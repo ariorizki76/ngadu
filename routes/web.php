@@ -34,11 +34,15 @@ Route::post('/admin/register/store', 'Auth\RegisterController@RegisterAdmin')->n
 
 // Middlware Masyarakat
 Route::middleware('masyarakat')->group(function(){
-    Route::get('/pengaduan', 'MasyarakatController@FormPengaduan');
-    Route::post('/pengaduan/simpan', 'MasyarakatController@SimpanPengaduan')->name('masyarakat.pengaduan');
-    Route::get('/laporanku', 'MasyarakatController@Laporanku');
-    Route::get('/logout', 'MasyarakatController@Logout')->name('masyarakat.logout');
-    Route::get('/laporanku/detaillaporan/{id}', 'MasyarakatController@DetailLaporan');
+    Route::resource('/masyarakat', 'MasyarakatController')->except('show');
+    Route::get('/masyarakat', 'MasyarakatController@Dashboard');
+    Route::get('/masyarakat/pengaduan', 'MasyarakatController@FormPengaduan');
+    Route::post('/masyarakat/pengaduan/simpan', 'MasyarakatController@SimpanPengaduan')->name('masyarakat.pengaduan');
+    Route::get('/masyarakat/laporanku', 'MasyarakatController@Laporanku');
+    Route::get('masyarakat/detaillaporan/{id}', 'MasyarakatController@DetailLaporan')->name('masyarakat.detaillaporan');
+    Route::get('/masyarakat/profile', 'MasyarakatController@ProfileMasyarakat');
+    Route::patch('/masyarakat/profile/update', 'MasyarakatController@UpdateMasyarakat')->name('masyarakat.update');
+    Route::get('/masyarakat/logout', 'MasyarakatController@Logout')->name('masyarakat.logout');
 });
 
 // Middleware Petugas
@@ -47,9 +51,13 @@ Route::middleware('petugas')->group(function(){
     Route::get('/petugas/pengaduan', 'PetugasController@TampilPengaduan');
     Route::get('/petugas/pengaduan/{id}', 'PetugasController@DetailPengaduan')->name('petugas.detailpengaduan');
     Route::get('/petugas/destroy/{id}', 'PetugasController@DestroyPengaduan')->name('petugas.destroypengaduan');
-    Route::get('/petugas/detailpengaduan/{id}/tanggapan', 'TanggapanController@FormTanggapan');
-    Route::post('/petugas/detailpengaduan/{id}/tanggapan', 'TanggapanController@StoreTanggapan')->name('petugas.tanggapan');
+    Route::get('/petugas/detailpengaduan/{id}/tanggapan', 'PetugasController@FormTanggapan');
+    Route::post('/petugas/detailpengaduan/{id}/tanggapan', 'PetugasController@StoreTanggapan')->name('petugas.tanggapan');
     Route::post('/petugas/detailpengaduan/onchange/{id}', 'PetugasController@StatusOnChange')->name('petugas.statusonchange');
+    Route::get('/petugas/masyarakat', 'PetugasController@PetugasMasyarakat');
+    Route::get('/petugas/masyarakat/search', 'PetugasController@MasyarakatSearch')->name('masyarakats.search');
+    Route::get('/petugas/profile', 'PetugasController@ProfilePetugas');
+    Route::patch('/petugas/profile/update', 'PetugasController@UpdatePetugas')->name('petugas.update');
     Route::get('/petugas/logout', 'PetugasController@Logout')->name('petugas.logout');
 });
 
@@ -58,7 +66,19 @@ Route::middleware('admin')->group(function(){
     Route::resource('admin', 'AdminController')->except('show');
     Route::get('/admin/pengaduan', 'AdminController@TampilPengaduan');
     Route::get('/admin/pengaduan/{id}', 'AdminController@DetailPengaduan')->name('admin.detailpengaduan');
-    Route::get('/admin/pengaduans/pdf', 'AdminController@CetakPdf')->name('admin.pdf');
+    Route::get('/admin/detailpengaduan/{id}/tanggapan', 'AdminController@FormTanggapan');
+    Route::post('/admin/detailpengaduan/{id}/tanggapan', 'AdminController@StoreTanggapan')->name('admin.tanggapan');
+    Route::post('/admin/detailpengaduan/onchange/{id}', 'AdminController@StatusOnChange')->name('admin.statusonchange');
+    Route::post('/admin/ubahstatusmasyarakat/{id}', 'AdminController@UbahStatusMasyarakat')->name('admin.ubahstatusmasyarakat');
+    Route::get('/admin/destroypetugas/{id}', 'AdminController@DestroyPetugas')->name('admin.destroypetugas');
+    Route::get('/admin/pengaduan/cetak/{tglawal}/{tglakhir}', 'AdminController@CetakPengaduanPertanggal')->name('admin.cetak');
+    Route::get('/admin/pengaduan/cetak/{lokasi}', 'AdminController@CetakPengaduanLokasi')->name('admin.cetaklokasi');
     Route::get('/admin/pengaduans/pdf/{id}', 'AdminController@DetailPdf')->name('admin.detailpdf');
+    Route::get('/admin/petugas', 'AdminController@AdminPetugas');
+    Route::get('/admin/petugas/search', 'AdminController@PetugasSearch')->name('petugas.search');
+    Route::get('/admin/masyarakat', 'AdminController@AdminMasyarakat');
+    Route::get('/admin/masyarakat/search', 'AdminController@MasyarakatSearch')->name('masyarakat.search');
+    Route::get('/admin/profile', 'AdminController@ProfileAdmin');
+    Route::patch('/admin/profile/update', 'AdminController@UpdateAdmin')->name('admin.update');
     Route::get('/admin/logout', 'AdminController@Logout')->name('admin.logout');
 });

@@ -12,6 +12,10 @@ class Petugas extends Authenticatable
     protected $hidden = ['password'];
     protected $fillable = ['nama_petugas', 'email', 'username', 'password', 'telp', 'level'];
 
+    public function Petugas()
+    {
+        return $this->belongsTo('App\Petugas');
+    }
     public function Tanggapan()
     {
         return $this->hasMany('App\Tanggapan');

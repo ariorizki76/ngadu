@@ -17,7 +17,7 @@ class Petugas
     {
         if(!Auth()->guard('petugas')->check())
         {
-            return redirect()->to('/petugas/login');
+            return redirect()->back();
         }
 
         return $next($request);
