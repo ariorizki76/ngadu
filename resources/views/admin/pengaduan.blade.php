@@ -151,7 +151,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary rounded" data-dismiss="modal">Batal</button>
-                <a type="button" onclick="this.href='/admin/pengaduan/cetak/'+ document.getElementById('tglawal').value + '/'+ document.getElementById('tglakhir').value"
+                <a type="button" onclick="this.href='/admin/pengaduan/cetak/'+ document.getElementById('masyarakat').value"
                  class="btn btn-primary rounded text-white">Cetak</a>
             </div>
         </div>

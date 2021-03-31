@@ -146,9 +146,7 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <button type="submit" class="btn btn-pill text-white btn-block"
-                                        style="background-color: #7142d6">Register</button>
+                                    <button type="submit" class="btn btn-pill btn btn-primary btn-block">Register</button>
                                 </div>
                                 <hr>
                                 <p class="text-center" style="color: gray">Sudah punya akun? <a

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Petugas;
 use App\Pengaduan;
 use App\Masyarakat;
@@ -16,12 +17,14 @@ class AdminController extends Controller
 {
     public function Index()
     {
+        $mount =date('Y-m-d');
         $data_pengaduan = Pengaduan::all()->count();
         $pengaduan_terverifikasi = Pengaduan::where('status', 'selesai')->count();
         $data_masyarakat = Masyarakat::all()->count();
         $data_petugas = Petugas::all()->count();
         $data_pengaduans = Pengaduan::with('masyarakat')->orderBy('id', 'DESC')->paginate(10);
-        return view('admin.index', compact('data_pengaduan', 'data_pengaduans', 'pengaduan_terverifikasi', 'data_masyarakat', 'data_petugas'));
+        $bulanterakhir = Pengaduan::where('tanggal_pengaduan', $mount)->count();
+        return view('admin.index', compact('data_pengaduan', 'data_pengaduans', 'pengaduan_terverifikasi', 'data_masyarakat', 'data_petugas', 'bulanterakhir'));
     }
 
     // Tampil Pengaduan
@@ -59,6 +62,7 @@ class AdminController extends Controller
             // $pdf = PDF::LoadView('admin.pdf', compact('data_pengaduan'))->setPaper('a4', 'landscape');
             // return $pdf->stream();
         }
+
 
     public function DetailPdf($id)
     {
